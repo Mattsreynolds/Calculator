@@ -4,54 +4,64 @@ const display = document.querySelector('.display')
 const clearButton = document.querySelector('.clear')
 const equalsButton = document.querySelector('.equals')
 
-let displayData = "";
-let result = "";
+let currentNum = "";
+let opValue = "";
+let op = "";
 
 buttons.forEach(button => {
     button.addEventListener('click', () => { 
-    const buttonValue = button.getAttribute('data-num');    
-    displayData += buttonValue;
-    display.textContent = displayData;
-    currentNum = displayData;
-
+    let buttonValue = button.getAttribute('data-num');    
+    handleNumber(buttonValue);
     })
 })
 
 operation.forEach(button => {
     button.addEventListener('click', () => { 
-    const buttonValue = button.getAttribute('data-num');  
-    displayData = buttonValue;
-    display.textContent = displayData;
-    op = displayData;
-    previousNum = currentNum;
-    displayData = "";
+    let opValue = button.getAttribute('data-num');  
+    handleOperator(opValue);
     })
 })
 
 clearButton.addEventListener('click', () => { 
     displayData = "";
+    previousNum = "";
+    currentNum = "";
     display.textContent = displayData;
 })
 
 equalsButton.addEventListener('click', () => { 
-    operator(op);
-    display.textContent = currentNum.toFixed(10);
+    operator();
 })
 
-function operator(op) {
-    if (op === "+") {
-      currentNum = (Number(previousNum) + Number(currentNum));
-    }
-    else if (op === "-") {
-      currentNum = (Number(previousNum) - Number(currentNum));
-    }
-    else if (op === "*") {
-      currentNum = (Number(previousNum) * Number(currentNum));
-    }
-    else if (op === "/") {
-      currentNum = (Number(previousNum) / Number(currentNum));
-    }
-
+function handleNumber(number) {
+  if (currentNum.length <= 11) {
+      currentNum += number;
+      display.textContent = currentNum;
   }
+}
 
+function handleOperator(op) {
+  oper = op;
+  previousNum = currentNum;
+  display.textContent = op;
+  currentNum = "";
+
+}
+
+
+function operator() {
+    if (oper === "+") {
+      previousNum = (Number(previousNum) + Number(currentNum));
+    } else if (oper === "-") {
+      previousNum = (Number(previousNum) - Number(currentNum));
+    } else if (oper === "*") {
+      previousNum = (Number(previousNum) * Number(currentNum));
+    } else if (oper === "/") {
+    if (currentNum <= 0) {
+      previousNum = 'Error';
+    } else {
+      previousNum = (Number(previousNum) / Number(currentNum));
+    }} display.textContent = previousNum;
+  }
+    
   
