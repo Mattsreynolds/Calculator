@@ -48,7 +48,6 @@ function handleOperator(op) {
 
 }
 
-
 function operator() {
     if (oper === "+") {
       previousNum = (Number(previousNum) + Number(currentNum));
@@ -61,7 +60,16 @@ function operator() {
       previousNum = 'Error';
     } else {
       previousNum = (Number(previousNum) / Number(currentNum));
-    }} display.textContent = previousNum;
-  }
+    }} displayResult();
     
-  
+  }
+
+
+function displayResult() {
+  previousNum = String(previousNum);
+  if (previousNum.length <= 11) {
+      display.textContent = previousNum;
+    } else {
+      display.textContent = previousNum.slice(0, 11) + "...";
+    }
+}
