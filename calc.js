@@ -23,14 +23,13 @@ operation.forEach(button => {
 })
 
 clearButton.addEventListener('click', () => { 
-    displayData = "";
     previousNum = "";
     currentNum = "";
-    display.textContent = displayData;
+    display.textContent = previousNum;
 })
 
 equalsButton.addEventListener('click', () => { 
-    operator();
+    ops();
 })
 
 function handleNumber(number) {
@@ -41,14 +40,15 @@ function handleNumber(number) {
 }
 
 function handleOperator(op) {
+  
   oper = op;
   previousNum = currentNum;
   display.textContent = op;
   currentNum = "";
-
+ 
 }
 
-function operator() {
+function ops() {
     if (oper === "+") {
       previousNum = (Number(previousNum) + Number(currentNum));
     } else if (oper === "-") {
@@ -60,12 +60,14 @@ function operator() {
       previousNum = 'Error';
     } else {
       previousNum = (Number(previousNum) / Number(currentNum));
-    }} displayResult();
-    
+    }} 
+    displayResult();
+
   }
 
 
 function displayResult() {
+  currentNum = previousNum;
   previousNum = String(previousNum);
   if (previousNum.length <= 11) {
       display.textContent = previousNum;
